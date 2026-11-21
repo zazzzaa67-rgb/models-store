@@ -17,6 +17,10 @@ export default async function CategoryPage({params, searchParams}:{
 
   const {search, sort, page} = getQueryParams(await searchParams)
 
+  if (sort === null) {
+    redirect(`/3d-models/categories/${(await params).categorySlug}`)
+  }
+
 
   const {categorySlug} = await params
 
@@ -30,7 +34,7 @@ export default async function CategoryPage({params, searchParams}:{
 
   const totalPages = Math.max(1, Math.ceil(modelCount/MODELS_PER_PAGE))
 
-  if (page < 1 || page > totalPages || sort === null ){
+  if (page < 1 || page > totalPages){
     redirect(`/3d-models/categories/${categorySlug}`)
   }
 
